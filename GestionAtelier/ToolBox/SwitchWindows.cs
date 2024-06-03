@@ -5,7 +5,7 @@ using GestionAtelier.ViewModel;
 using System;
 using System.Windows;
 
-namespace Examen2018.Toolbox
+namespace GestionAtelier.Toolbox
 {
     class SwitchWindows
     {
