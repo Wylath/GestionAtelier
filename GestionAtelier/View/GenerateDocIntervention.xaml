@@ -1,0 +1,104 @@
+﻿<Controls:MetroWindow x:Class="GestionAtelier.View.GenerateDocIntervention"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestionAtelier.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="1000" d:DesignWidth="1700"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      Title="Génération du document d'intervention" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.1*"/>
+            </Grid.RowDefinitions>
+            <FlowDocumentScrollViewer>
+                <FlowDocument x:Name="FD">
+                    <Paragraph FontSize="36" Margin="0">Intervention</Paragraph>
+                    <!--<Image Width="90" Height="90" Margin="0,0,30,0" /> todo : logo-->
+                    <Paragraph>
+                        <TextBlock Text="Intervention sur le véhicule :" />
+                        <Bold>
+                            <TextBlock Name="TxtBlock_VehicleName" DataContext="{Binding SelectedInterventionItem}" Text="{Binding Detail.vehicleId.Name, StringFormat=' {0}'}" />
+                        </Bold> , données de l'intervention :
+                        <LineBreak/>
+                    </Paragraph>
+                    <BlockUIContainer>
+                        <ListView BorderThickness="0" Width="1500" ItemsSource="{Binding listInterventionForSheet}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn x:Name="GVC_InterventionId" Header="Intervention N°" DisplayMemberBinding="{Binding Detail.interventionId}" Width="115" />
+                                    <GridViewColumn x:Name="GVC_VehicleId" Header="VéhiculeID" DisplayMemberBinding="{Binding Detail.vehicleId.VehicleId}" Width="120" />
+                                    <GridViewColumn x:Name="GVC_Vehicle" Header="Véhicule" DisplayMemberBinding="{Binding Detail.vehicleId.Name}" Width="200" />
+                                    <GridViewColumn x:Name="GVC_InterventionType" Header="Intervention Type" DisplayMemberBinding="{Binding Detail.interventionTypeId.Name}" Width="150" />
+                                    <GridViewColumn x:Name="GVC_Priority" Header="Priorité" DisplayMemberBinding="{Binding Detail.Priority.Name}" Width="100" />
+                                    <GridViewColumn x:Name="GVC_DateIn" Header="Date de création" DisplayMemberBinding="{Binding Detail.DateIn, StringFormat=dd-MM-yyyy}" Width="150" />
+                                    <GridViewColumn x:Name="GVC_Applicant" Header="Demandeur" DisplayMemberBinding="{Binding Detail.Applicant.Name}" Width="200" />
+                                    <GridViewColumn x:Name="GVC_Submitter" Header="Encodeur" DisplayMemberBinding="{Binding Detail.Submitter.Name}" Width="200" />
+                                    <GridViewColumn x:Name="GVC_Barcode" Header="Barcode" Width="200" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Width="200" Height="75" Source="{Binding Detail.barcodePicture}" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </BlockUIContainer>
+                    <!--<Paragraph>
+                        --><!--<Image Width="90" Height="90" Margin="0,0,30,0" /> todo : logo--><!--
+                        <Run FontSize="28" Text="{Binding Detail.interventionId, StringFormat='Intervention n° {0}'}"></Run>
+                    </Paragraph>
+
+                    <Paragraph>
+                        <TextBlock Text="Feuille d'intervention sur " />
+                        <Bold>
+                            <TextBlock Text="{Binding Detail.vehicleId.Name, StringFormat='véhicule : {0}'}" />
+                        </Bold> , données de l'intervention :
+                    </Paragraph>
+
+                    <List>
+                        <ListItem>
+                            <Paragraph>
+                                <TextBlock Text="{Binding Detail.interventionTypeId.Name, StringFormat='Type d\'intervention : {0}'}" />
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <TextBlock Text="{Binding Detail.Priority.Name, StringFormat='Priorité : {0}'}" />
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <TextBlock Text="{Binding Detail.DateIn, StringFormat='Date de création : {0}'}" />
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <TextBlock Text="{Binding Detail.Applicant.Name, StringFormat='Demandeur : {0}'}" />
+                            </Paragraph>
+                        </ListItem>
+                        <ListItem>
+                            <Paragraph>
+                                <TextBlock Text="{Binding Detail.Submitter.Name, StringFormat='Encodeur : {0}'}" />
+                            </Paragraph>
+                        </ListItem>
+                    </List>
+                    <Paragraph>
+                        <Image Width="200" Height="100" Source="{Binding Detail.barcode}" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" />
+                    </Paragraph>-->
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+            <Grid Grid.Row="1">
+                <StackPanel>
+                    <Button Height="30" Content="Imprimer le document" Click="Bt_print_intervention" FontSize="14" FontWeight="Bold"></Button>
+                    <Button Height="30" Content="Enregistrer le document" Click="Bt_generate_PDF" FontSize="14" FontWeight="Bold"></Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

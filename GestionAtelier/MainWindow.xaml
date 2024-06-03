@@ -1,0 +1,50 @@
+﻿<Controls:MetroWindow x:Class="GestionAtelier.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestionAtelier"
+        mc:Ignorable="d"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Gestion Atelier" Height="1450" Width="1800" WindowStartupLocation="CenterScreen">
+    <Grid DataContext="{Binding Source={StaticResource AllUser}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid DataContext="{Binding SelectedUserItem}" Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="{Binding Detail.EmployeeId}"/>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="1">
+            <ListBox ItemsSource="{Binding UserProfile}" SelectedItem="{Binding SelectedUserProfileItem, Mode=TwoWay}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} : {1}">
+                                        <Binding Path="Detail.SiteId.Name" />
+                                        <Binding Path="Detail.Name" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="3">
+            <Button Content="Connexion" Command="{Binding OpenIntervention}"/>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

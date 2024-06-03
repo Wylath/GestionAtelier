@@ -1,0 +1,538 @@
+﻿<Page x:Class="GestionAtelier.View.AllInterventionAdvanced"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestionAtelier.View"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:dotNetKitControls="clr-namespace:DotNetKit.Windows.Controls;assembly=DotNetKit.Wpf.AutoCompleteComboBox"
+      mc:Ignorable="d" 
+      d:DesignHeight="1450" d:DesignWidth="1800"
+      Title="AllInterventionAdvanced">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type ComboBox}">
+                <Style.Triggers>
+                    <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                        <Setter Property="IsDropDownOpen" Value="true" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+        <!--<Style TargetType="{x:Type DataGridRow}">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFFF5858" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#FFFF5858" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFFD8E8E" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
+            </Style.Resources>
+        </Style>-->
+    </Page.Resources>
+    <Page.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding OpenSupport}" />
+        <KeyBinding Key="F2" Command="{Binding OpenUserManagement}" />
+        <KeyBinding Key="F3" Command="{Binding DisplayVehicleWindow}" />
+        <KeyBinding Key="F4" Command="{Binding InsertIntervention}"/>
+        <KeyBinding Key="F6" Command="{Binding InterventionFilter}" />
+        <KeyBinding Key="F7" Command="{Binding ResetInterventionFilter}" />
+    </Page.InputBindings>
+    <Grid Focusable="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.02*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.05*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
+                <MenuItem Header="Gestion" Visibility="{Binding GetVisibilityForMenuInterface}">
+                    <MenuItem InputGestureText="F2" Command="{Binding OpenUserManagement}" Header="Utilisateur"/>
+                </MenuItem>
+                <MenuItem Header="Aide">
+                    <MenuItem InputGestureText="F1" Command="{Binding OpenSupport}" Header="Support"/>
+                </MenuItem>
+            </Menu>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Nom véhicule" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <dotNetKitControls:AutoCompleteComboBox Text="{Binding SelectedInterventionItem.Detail.vehicleId.Name}" IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.FullName" Name="LB_VehicleList" ItemsSource="{Binding Vehicle}" SelectedItem="{Binding SelectedVehicleItem}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="120">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}: {1}">
+                                            <Binding Path="Detail.VehicleId" />
+                                            <Binding Path="Detail.Name" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </dotNetKitControls:AutoCompleteComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="4" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Intervention Type" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <ComboBox Text="{Binding SelectedInterventionItem.Detail.interventionTypeId.Name}" IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.Name" Name="LB_InterventionTypeList" ItemsSource="{Binding InterventionType}" SelectedItem="{Binding SelectedInterventionTypeItem}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="120">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="6" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Demandeur" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <dotNetKitControls:AutoCompleteComboBox Text="{Binding SelectedInterventionItem.Detail.Applicant.Name}" IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.Name" Name="LB_ApplicantList" ItemsSource="{Binding Applicant}" SelectedItem="{Binding SelectedApplicantItem}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="120">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </dotNetKitControls:AutoCompleteComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="7" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Encodeur" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <dotNetKitControls:AutoCompleteComboBox Text="{Binding SelectedInterventionItem.Detail.Submitter.Name}" IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.Name" Name="LB_SubmitterList" ItemsSource="{Binding Submitter}" SelectedItem="{Binding SelectedSubmitterItem}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="120">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </dotNetKitControls:AutoCompleteComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="8" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Garage" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <ComboBox Text="{Binding SelectedInterventionItem.Detail.SiteId.Name}" IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.Name" Name="LB_SiteList" ItemsSource="{Binding ParmSite}" SelectedItem="{Binding SelectedParmSiteItem}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="80">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="10" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Status" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <ComboBox Text="{Binding SelectedInterventionItem.Detail.StatusId.Name}" IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.Name" Name="LB_StatusList" ItemsSource="{Binding Status}" SelectedItem="{Binding SelectedStatusItem}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="80">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="11" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Priorité" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <ComboBox Text="{Binding SelectedInterventionItem.Detail.Priority.Name}" IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.Name" Name="LB_PriorityList" ItemsSource="{Binding Priority}" SelectedItem="{Binding SelectedPriorityItem}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="80">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="12" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Date de sortie" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <DatePicker SelectedDate="{Binding SelectedDateOutItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <DatePicker.Resources>
+                        <Style TargetType="{x:Type DatePickerTextBox}">
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBox x:Name="TxtBox_DateOut" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="-1,-1, 0, -2" Text="{Binding SelectedDateOutItem, StringFormat=d, ConverterCulture='fr-FR'}" MinWidth="80" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="13" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Date d'entrée" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <DatePicker SelectedDate="{Binding SelectedDateInItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <DatePicker.Resources>
+                        <Style TargetType="{x:Type DatePickerTextBox}">
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBox x:Name="TxtBox_DateIn" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="-1,-1, 0, -2" Text="{Binding SelectedDateInItem, StringFormat=d, ConverterCulture='fr-FR'}" MinWidth="80" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="14" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Date estimée" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <DatePicker SelectedDate="{Binding SelectedDateEstimateItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <DatePicker.Resources>
+                        <Style TargetType="{x:Type DatePickerTextBox}">
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBox x:Name="TxtBox_DateEstimate" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="-1,-1, 0, -2" Text="{Binding SelectedDateEstimateItem, StringFormat=d, ConverterCulture='fr-FR'}" MinWidth="80" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="10" Grid.Row="2">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Code barre" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <TextBox Name="TextBox_Barcode" Text="{Binding SelectedBarcodeItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="80">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <TextBlock>Code barre intervention</TextBlock>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <CheckBox Command="{Binding CloseIntervention}" Content="Clôturé" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2">
+            <CheckBox Command="{Binding ChangePieceOrderValue}" IsChecked="{Binding SelectedPieceOrderItem}" Content="Pièces" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Grid>
+        <Grid Grid.Column="4" Grid.Row="2">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Commentaire pièce" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <TextBox Name="TextBox_Com" Text="{Binding SelectedPieceComItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="120">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <TextBlock>Commentaire pièce (si 'Pièces' coché)</TextBlock>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="6" Grid.Row="2">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Temps estimée : 0.00" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <TextBox Name="TextBox_TimeEstimate" Text="{Binding SelectedTimeEstimateItem, StringFormat={}{0:n2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="120">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <TextBlock>Temps estimée : 0.00</TextBlock>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="7" Grid.Row="2">
+            <Button Name="Bt_JoinPicture" Content="Joindre photo" Command="{Binding JoinPictureToIntervention}" MinHeight="40" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Column="8" Grid.Row="2">
+            <Button Name="Bt_LookPicture" Content="Voir les photos" Command="{Binding DisplayPictureIntervention}" MinHeight="40" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Column="11" Grid.Row="2">
+            <Button Name="Bt_InterventionFilter" Content="Filtrer intervention" Command="{Binding InterventionFilter}" MinHeight="40" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Column="12" Grid.Row="2">
+            <Button Name="Bt_ResetInterventionFilter" Content="Supprimer le filtre" Command="{Binding ResetInterventionFilter}" MinHeight="40" VerticalAlignment="Center"/>
+        </Grid>
+        <DataGrid Grid.Column="1" Grid.ColumnSpan="13" Grid.Row="4" Name="DG_Intervention" ItemsSource="{Binding Intervention}" SelectedItem="{Binding SelectedInterventionItem}" AutoGenerateColumns="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="InterventionId" Binding="{Binding Detail.interventionId}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Demandeur" Binding="{Binding Detail.Applicant.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Encodeur" Binding="{Binding Detail.Submitter.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Véhicule" Visibility="Visible">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0}: {1}">
+                            <Binding Path="Detail.vehicleId.VehicleId" />
+                            <Binding Path="Detail.vehicleId.Name" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Type" Binding="{Binding Detail.interventionTypeId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Status" Binding="{Binding Detail.StatusId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Date d'entrée" Binding="{Binding Detail.DateIn, StringFormat=dd-MM-yyyy}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Priorité" Binding="{Binding Detail.Priority.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Site" Binding="{Binding Detail.SiteId.Name}" Visibility="Visible" />
+                <DataGridCheckBoxColumn IsReadOnly="False" Header="Feuille intervention" Binding="{Binding Detail.IsCheckedForGenerateSheet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Visible" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="15" Grid.Row="1">
+            <Button Name="Bt_InsertIntervention" Content="Ajouter" Command="{Binding InsertIntervention}" VerticalAlignment="Center" MinHeight="40"/>
+        </Grid>
+        <Grid Grid.Column="17" Grid.Row="1">
+            <Button Name="Bt_ListVehicle" Content="Liste Véhicule" Command="{Binding DisplayVehicleWindow}" MinHeight="40" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="6">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="RFID" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <TextBox Text="{Binding SelectedBadgeNumberItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="TBL_NumeroRFID" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="80" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="10" Grid.Row="6" Grid.ColumnSpan="2">
+            <Button Name="Bt_GeneratePaperIntervention" Content="Générer feuille intervention" Command="{Binding GenerateSheetIntervention}" MinHeight="40" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Column="12" Grid.Row="6">
+            <Button Name="Bt_CloseIntervention" Content="Clôturer" Command="{Binding CloseCurrentIntervention}" MinHeight="40" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Column="13" Grid.Row="6">
+            <Button Name="Bt_ModifyIntervention" Content="Modifier" Command="{Binding UpdateCurrentIntervention}" MinHeight="40" VerticalAlignment="Center"/>
+        </Grid>
+        <DataGrid Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="13" Name="DG_Prestation" ItemsSource="{Binding Prestation}" SelectedItem="{Binding SelectedPrestationItem}" AutoGenerateColumns="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="Prestation" Binding="{Binding Detail.PrestationTypeId.Name}" Visibility="Visible" />
+                <DataGridCheckBoxColumn IsReadOnly="False" Header="Réalisé" Binding="{Binding Detail.Realized, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="False" Header="Heure" Binding="{Binding Detail.HoursCount, StringFormat={}{0:n2}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Visible" />
+                <!--<DataGridTextColumn IsReadOnly="False" Header="Date" Binding="{Binding Detail.Date, StringFormat=d}" Visibility="Visible" />-->
+                <DataGridTemplateColumn IsReadOnly="False" Header="Date" Visibility="Visible">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Detail.Date, StringFormat=dd-MM-yyyy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Detail.Date, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridCheckBoxColumn IsReadOnly="False" Header="Camion" Binding="{Binding Detail.Truck, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Visible" />
+                <DataGridTemplateColumn IsReadOnly="False" Header="Grue" Visibility="Visible">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Detail.Crane, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Command="{Binding Path=DataContext.CheckInterventionType, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn IsReadOnly="False" Header="Heures véhicule" Binding="{Binding Detail.HourVehicle, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="False" Header="Km véhicule" Binding="{Binding Detail.KilometerVehicle, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="False" Header="Remarque" Binding="{Binding Detail.Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="False" Header="Heures Fuel véhicule" Binding="{Binding Detail.HourFuel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="False" Header="Km Fuel véhicule" Binding="{Binding Detail.KilometerFuel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Visible" />
+                <DataGridTemplateColumn IsReadOnly="False" Header="Date Fuel" Visibility="Visible">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Detail.DateFuel, StringFormat=dd-MM-yyyy, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Detail.DateFuel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Employée" Binding="{Binding Detail.EmployeeId.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Visible" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="15" Grid.Row="8" Visibility="{Binding GetVisibilityForTiresInterface}">
+            <Button Name="Bt_ListTires" Content="Rechercher pneu" Command="{Binding DisplayTiresWindow}" Focusable="False" Visibility="Hidden"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="3" Visibility="{Binding GetVisibilityForTiresInterface}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <TextBlock Text="Crèves :" />
+                <TextBox Margin="10, 0" Width="20" Text="{Binding SelectedTireNumberCreveItem}">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <TextBlock>Entrez le nombre de pneu changé.</TextBlock>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+                <ComboBox Text="{Binding GetInfoCreveTire}" IsEditable="True" StaysOpenOnEdit="False" IsTextSearchEnabled="False" TextSearch.TextPath="Detail.ItemId" Name="LB_TiresListCreve" ItemsSource="{Binding Tires}" SelectedItem="{Binding SelectedTireCreveItem}" MinWidth="100" MaxWidth="100">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.ItemId}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <!--<ComboBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding DisplayTiresWindow}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ComboBox}, Path=Name}" />
+                    </ComboBox.InputBindings>-->
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="13" Grid.ColumnSpan="3" Visibility="{Binding GetVisibilityForTiresInterface}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <TextBlock Text="Uses :" />
+                <TextBox Margin="10, 0" Width="20" Text="{Binding SelectedTireNumberUseItem}">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <TextBlock>Entrez le nombre de pneu changé.</TextBlock>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+                <ComboBox Text="{Binding GetInfoUseTire}" IsEditable="True" StaysOpenOnEdit="False" IsTextSearchEnabled="False" TextSearch.TextPath="Detail.ItemId" Name="LB_TiresListUse" ItemsSource="{Binding Tires}" SelectedItem="{Binding SelectedTireUseItem}" MinWidth="100" MaxWidth="100">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.ItemId}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <!--<ComboBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding DisplayTiresWindow}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ComboBox}, Path=Name}" />
+                    </ComboBox.InputBindings>-->
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="14" Grid.ColumnSpan="3" Visibility="{Binding GetVisibilityForTiresInterface}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <TextBlock Text="Jante :" />
+                <TextBox Margin="10, 0" Width="20" Text="{Binding SelectedTireNumberJanteItem}">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <TextBlock>Entrez le nombre de pneu changé.</TextBlock>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+                <ComboBox Text="{Binding GetInfoJanteTire}" IsEditable="True" StaysOpenOnEdit="False" IsTextSearchEnabled="False" TextSearch.TextPath="Detail.ItemId" Name="LB_TiresListJante" ItemsSource="{Binding Tires}" SelectedItem="{Binding SelectedTireJanteItem}" MinWidth="100" MaxWidth="100">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.ItemId}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <!--<ComboBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding DisplayTiresWindow}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ComboBox}, Path=Name}" />
+                    </ComboBox.InputBindings>-->
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="15" Grid.ColumnSpan="3" Visibility="{Binding GetVisibilityForTiresInterface}">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <TextBlock Text="Permutation :" />
+                <TextBox Margin="10, 0" Width="20" Text="{Binding SelectedTireNumberPermutationItem}">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <TextBlock>Entrez le nombre de pneu changé.</TextBlock>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+                <ComboBox Text="{Binding GetInfoJanteTire}" IsEditable="True" StaysOpenOnEdit="False" IsTextSearchEnabled="False" TextSearch.TextPath="Detail.ItemId" Name="LB_TiresListPermutation" ItemsSource="{Binding Tires}" SelectedItem="{Binding SelectedTirePermutationItem}" MinWidth="100"  Visibility="Hidden">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.ItemId}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <!--<ComboBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding DisplayTiresWindow}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ComboBox}, Path=Name}" />
+                    </ComboBox.InputBindings>-->
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <DataGrid Grid.Column="4" Grid.Row="12" Grid.ColumnSpan="10" Grid.RowSpan="5" Name="DG_Tires" ItemsSource="{Binding Tires}" SelectedItem="{Binding SelectedTiresItem}" Visibility="{Binding GetVisibilityForTiresInterface}" AutoGenerateColumns="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="BarCode" Binding="{Binding Detail.BarCode}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="RECID" Binding="{Binding Detail.RECID}" Visibility="Collapsed" />
+                <DataGridTextColumn IsReadOnly="True" Header="CompanyId" Binding="{Binding Detail.CompanyId}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="ItemId" Binding="{Binding Detail.ItemId}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Dim1" Binding="{Binding Detail.Dim1}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Dim2" Binding="{Binding Detail.Dim2}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Dim3" Binding="{Binding Detail.Dim3}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Comment" Binding="{Binding Detail.Comment}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="ItemType" Binding="{Binding Detail.ItemType}" Visibility="Visible" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="12" Grid.Row="10">
+            <Button Name="Bt_AddPrestation" Content="Ajouter" Command="{Binding InsertPrestation}"/>
+        </Grid>
+        <Grid Grid.Column="13" Grid.Row="10">
+            <Button Name="Bt_ModifyPrestation" Content="Modifier" Command="{Binding UpdateCurrentPrestation}"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="4" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <TextBlock Name="TBL_totalHour" Text="Total d'heure sur intervention : "/>
+                <TextBlock Name="TBL_hourCount" Text="{Binding GetNumberHourCountOnIntervention}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

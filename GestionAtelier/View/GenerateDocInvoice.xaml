@@ -1,0 +1,84 @@
+﻿<Controls:MetroWindow x:Class="GestionAtelier.View.GenerateDocInvoice"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestionAtelier.View"
+        mc:Ignorable="d"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Génération de la facture" Height="1000" Width="1500" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.13*"/>
+            </Grid.RowDefinitions>
+            <FlowDocumentScrollViewer Grid.Row="0">
+                <FlowDocument x:Name="FD">
+                    <Paragraph FontSize="36" Margin="0">Facture n° :
+                        <TextBlock Name="TxtBlock_NumberInvoice" DataContext="{Binding SelectedInvoiceItem}" Text="{Binding Detail.NumberInvoice}" />
+                    </Paragraph>
+                    <Paragraph>
+                        <TextBlock Text="Doit pour les prestations de notre garage au cours du mois de :" />
+                        <Bold>
+                            <TextBlock Name="TxtBlock_DateInvoice" DataContext="{Binding SelectedInvoiceItem}" Text="{Binding Detail.DateInvoice, StringFormat=MM-yyyy}" />
+                        </Bold>
+                        <LineBreak/>
+                    </Paragraph>
+                    <Paragraph>
+                        <TextBlock Text="Coût intervention = " />
+                        <TextBlock DataContext="{Binding SelectedInvoiceItem}" Text="{Binding Detail.Ponderation}" />
+                        <TextBlock Text=" heures à " />
+                        <TextBlock DataContext="{Binding SelectedInvoiceItem}" Text="{Binding Detail.Price}" />
+                        <TextBlock Text=" €/h = " />
+                        <TextBlock DataContext="{Binding SelectedInvoiceItem}" Text="{Binding Detail.TotalPrice}" />
+                        <TextBlock Text=" €" />
+                    </Paragraph>
+                    <Paragraph>
+                        <TextBlock Text="+ T.V.A " />
+                        <TextBlock DataContext="{Binding SelectedInvoiceItem}" Text="{Binding Detail.TVA}" />
+                        <TextBlock Text="% = " />
+                        <TextBlock DataContext="{Binding SelectedInvoiceItem}" Text="{Binding Detail.ValuePriceTva}" />
+                        <TextBlock Text=" €" />
+                    </Paragraph>
+                    <Paragraph>
+                        <TextBlock Text="Total = " />
+                        <TextBlock DataContext="{Binding SelectedInvoiceItem}" Text="{Binding Detail.TotalPriceWithTva}" />
+                        <TextBlock Text=" €" />
+                    </Paragraph>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+            <FlowDocumentScrollViewer Grid.Row="1">
+                <FlowDocument x:Name="FD_Detail">
+                    <Paragraph FontSize="36" Margin="0">Détail facture n° :
+                        <TextBlock Name="TxtBlock_DetailNumberInvoice" DataContext="{Binding SelectedInvoiceItem}" Text="{Binding Detail.NumberInvoice}" />
+                    </Paragraph>
+                    <Paragraph>
+                        <LineBreak/>
+                    </Paragraph>
+                    <BlockUIContainer>
+                        <ListView BorderThickness="0" ItemsSource="{Binding listPrestationForSheet}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn x:Name="GVC_VehicleId" Header="VéhiculeID" DisplayMemberBinding="{Binding Detail.InterventionId.vehicleId.VehicleId}" Width="250" />
+                                    <GridViewColumn x:Name="GVC_Vehicle" Header="Véhicule" DisplayMemberBinding="{Binding Detail.InterventionId.vehicleId.Name}" Width="250" />
+                                    <GridViewColumn x:Name="GVC_InterventionType" Header="Type d'intervention" DisplayMemberBinding="{Binding Detail.InterventionId.interventionTypeId.Name}" Width="150" />
+                                    <GridViewColumn x:Name="GVC_PrestationType" Header="Type de prestation" DisplayMemberBinding="{Binding Detail.PrestationTypeId.Name}" Width="150" />
+                                    <GridViewColumn x:Name="GVC_HourCount" Header="Heures prestées" DisplayMemberBinding="{Binding Detail.HoursCount}" Width="150" />
+                                    <GridViewColumn x:Name="GVC_DatePrestation" Header="Date de prestation" DisplayMemberBinding="{Binding Detail.Date, StringFormat=dd-MM-yyyy}" Width="150" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </BlockUIContainer>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+            <Grid Grid.Row="2">
+                <StackPanel>
+                    <Button Height="30" Content="Imprimer la facture" Click="Bt_print_invoice" FontSize="14" FontWeight="Bold"></Button>
+                    <Button Height="30" Content="Enregistrer la facture" Click="Bt_generate_PDF" FontSize="14" FontWeight="Bold"></Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

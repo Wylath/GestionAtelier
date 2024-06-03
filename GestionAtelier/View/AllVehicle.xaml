@@ -1,0 +1,63 @@
+﻿<Controls:MetroWindow x:Class="GestionAtelier.View.AllVehicle"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestionAtelier.View"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      mc:Ignorable="d" 
+      d:DesignHeight="1450" d:DesignWidth="1800"
+      Title="Liste des véhicules" WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Key="F5" Command="{Binding CloseVehicleWindow, Source={StaticResource AllVehicle}}" />
+    </Window.InputBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Name="DG_Vehicle" ItemsSource="{Binding Vehicle}" SelectedItem="{Binding SelectedVehicleItem}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="VehicleId" Binding="{Binding Detail.VehicleId}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="CompanyId" Binding="{Binding Detail.CompanyId}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="AssetID" Binding="{Binding Detail.AssetID}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Detail.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="SerialNum" Binding="{Binding Detail.SerialNum}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="VehicleType" Binding="{Binding Detail.VehicleType}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Make" Binding="{Binding Detail.Make}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Model" Binding="{Binding Detail.Model}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Responsible" Binding="{Binding Detail.Responsible}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="MajorType" Binding="{Binding Detail.MajorType}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="PaintNumber" Binding="{Binding Detail.PaintNumber}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="ModelYear" Binding="{Binding Detail.ModelYear}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="TechInfo1" Binding="{Binding Detail.TechInfo1}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="TechInfo2" Binding="{Binding Detail.TechInfo2}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="TechInfo3" Binding="{Binding Detail.TechInfo3}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="FuelType" Binding="{Binding Detail.FuelType}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Status" Binding="{Binding Detail.Status}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="SalesDate" Binding="{Binding Detail.SalesDate}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="NextControlTechn" Binding="{Binding Detail.NextControlTechn}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="TotalCardNum" Binding="{Binding Detail.TotalCardNum}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="BadgeEpack" Binding="{Binding Detail.BadgeEpack}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Department" Binding="{Binding Detail.Department}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="CostCenter" Binding="{Binding Detail.CostCenter}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Purpose" Binding="{Binding Detail.Purpose}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="PlateNumber" Binding="{Binding Detail.PlateNumber}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="PreviousPlateNumber" Binding="{Binding Detail.PreviousPlateNumber}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="IntervalHour" Binding="{Binding Detail.IntervalHour}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="IntervalKilometer" Binding="{Binding Detail.IntervalKilometer}" Visibility="Visible" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--<Grid Grid.Column="2" Grid.Row="1" DataContext="{Binding SelectedVehicleItem}">
+            <Image Source="{Binding Detail.Picture}" Margin="120,90,120,90"/>
+        </Grid>-->
+    </Grid>
+</Controls:MetroWindow>

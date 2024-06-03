@@ -1,0 +1,48 @@
+﻿<Controls:MetroWindow x:Class="GestionAtelier.View.Support"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestionAtelier.View"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="Support" Height="450" Width="850">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Text="Commande"/>
+            </StackPanel>
+            <Grid Grid.Column="1">
+                <StackPanel>
+                    <TextBlock Text="Raccourcis pour la fenêtre d'intervention et intervention avancée" FontWeight="Bold" FontSize="14" />
+                    <TextBlock/>
+                    <Frame x:Name="MainFrameSupport" x:FieldModifier="public" />
+                    <TextBlock Text="F3 : Affiche la fenêtre qui contient les détails sur tous les véhicules." />
+                    <TextBlock Text="F4 : Permets d'encoder rapidement une intervention une fois les informations remplies." />
+                    <TextBlock Text="F6 : Ajoute un filtre sur les interventions." />
+                    <TextBlock Text="F7 : Supprime le filtre sur les interventions." />
+                    <TextBlock/>
+                    <TextBlock Text="Raccourcis pour la fenêtre des pneus et des véhicules" FontWeight="Bold" FontSize="14" />
+                    <TextBlock/>
+                    <TextBlock Text="F5 : Ferme la fenêtre." />
+                    <!--<TextBlock Text="Double cliquer sur la touche enter une fois sur la liste des choix des pneus (crève/use/jante) pour ouvrir la fenêtre des pneus." />-->
+                    <TextBlock/>
+                    <TextBlock Text="Raccourcis pour le support" FontWeight="Bold" FontSize="14" />
+                    <TextBlock/>
+                    <TextBlock Text="F1 : Ouvre la fenêtre de support." />
+                    <TextBlock/>
+                    <TextBlock Text="Raccourcis pour la gestion des utilisateurs (mode administrateur)" FontWeight="Bold" FontSize="14" />
+                    <TextBlock/>
+                    <TextBlock Text="F2 : Ouvre la fenêtre gestion des utilisateurs." />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

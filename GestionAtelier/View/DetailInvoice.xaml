@@ -1,0 +1,42 @@
+﻿<Controls:MetroWindow x:Class="GestionAtelier.View.DetailInvoice"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GestionAtelier.View"
+        mc:Ignorable="d"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Détaile de la facture" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.05*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.05*" />
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="DG_DetailInvoice" ItemsSource="{Binding }" AutoGenerateColumns="False" Margin="10,10,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="PrestationId" Binding="{Binding PrestationId}" Visibility="Hidden" />
+                <DataGridTextColumn IsReadOnly="True" Header="Prestataire" Binding="{Binding EmployeeId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="InterventionId" Binding="{Binding InterventionId.InterventionId}" Visibility="Hidden" />
+                <DataGridTextColumn IsReadOnly="True" Header="Heure prestée" Binding="{Binding HoursCount}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Type de prestation" Binding="{Binding PrestationTypeId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Date de prestation" Binding="{Binding Date, StringFormat=dd-MM-yyyy}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Type d'intervention" Binding="{Binding InterventionId.interventionTypeId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Véhicule" Binding="{Binding InterventionId.vehicleId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Encodeur" Binding="{Binding InterventionId.Submitter.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Demandeur" Binding="{Binding InterventionId.Applicant.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Garage" Binding="{Binding InterventionId.SiteId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Société" Binding="{Binding InterventionId.vehicleId.CompanyId}" Visibility="Visible" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid DataContext="{Binding Source={StaticResource AllInvoices}}" Grid.Column="1" Grid.Row="2">
+            <Button Name="Bt_CloseDetailInvoice" Content="Fermer" Command="{Binding CloseDetailInvoice}"/>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

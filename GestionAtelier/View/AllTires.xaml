@@ -1,0 +1,40 @@
+﻿<Controls:MetroWindow x:Class="GestionAtelier.View.AllTires"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GestionAtelier.View"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Ensemble des pneus" WindowStartupLocation="CenterScreen">
+
+    <Window.InputBindings>
+        <KeyBinding Key="F5" Command="{Binding CloseTireWindow, Source={StaticResource AllTires}}" />
+    </Window.InputBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Column="1" Grid.Row="1" Name="DG_Tires" ItemsSource="{Binding Tires}" SelectedItem="{Binding SelectedTiresItem}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="BarCode" Binding="{Binding Detail.BarCode}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="RECID" Binding="{Binding Detail.RECID}" Visibility="Collapsed" />
+                <DataGridTextColumn IsReadOnly="True" Header="CompanyId" Binding="{Binding Detail.CompanyId}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="ItemId" Binding="{Binding Detail.ItemId}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Dim1" Binding="{Binding Detail.Dim1}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Dim2" Binding="{Binding Detail.Dim2}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Dim3" Binding="{Binding Detail.Dim3}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Comment" Binding="{Binding Detail.Comment}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="ItemType" Binding="{Binding Detail.ItemType}" Visibility="Visible" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Controls:MetroWindow>

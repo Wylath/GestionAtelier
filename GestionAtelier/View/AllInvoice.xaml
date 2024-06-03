@@ -1,0 +1,260 @@
+﻿<Page x:Class="GestionAtelier.View.AllInvoice"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:GestionAtelier.View"
+        mc:Ignorable="d"
+        d:DesignHeight="1450" d:DesignWidth="1800"
+        Title="AllInvoice">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid DataContext="{Binding Source={StaticResource AllInvoices}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.02*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.06*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.15*" />
+            <ColumnDefinition Width="0.15*" />
+            <ColumnDefinition Width="0.15*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.05*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="10" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Nom véhicule" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <ComboBox IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.FullName" Name="LB_VehicleList" ItemsSource="{Binding Vehicle}" SelectedItem="{Binding SelectedVehicleItem}" MinWidth="100">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}: {1}">
+                                            <Binding Path="Detail.VehicleId" />
+                                            <Binding Path="Detail.Name" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="11" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Type d'intervention" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <ComboBox IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.Name" Name="LB_InterventionTypeList" ItemsSource="{Binding InterventionType}" SelectedItem="{Binding SelectedInterventionTypeItem}" MinWidth="100">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="12" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Demandeur" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <ComboBox IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.Name" Name="LB_ApplicantList" ItemsSource="{Binding Employee}" SelectedItem="{Binding SelectedApplicantItem}" MinWidth="100">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="13" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Type de prestation" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <ComboBox IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.Name" Name="LB_PrestationTypeList" ItemsSource="{Binding PrestationType}" SelectedItem="{Binding SelectedPrestationTypeItem}" MinWidth="100">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="10" Grid.Row="3">
+            <TextBlock Text="Jour (JJ): " HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Grid>
+        <Grid Grid.Column="11" Grid.Row="3">
+            <TextBox x:Name="TxtB_Day" Text="{Binding SelectedDayDateInItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center">
+                <TextBox.ToolTip>
+                    <ToolTip>
+                        <TextBlock>Entrez le jour au format JJ. Exemple : 30</TextBlock>
+                    </ToolTip>
+                </TextBox.ToolTip>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Column="12" Grid.Row="3">
+            <TextBlock Text="Mois (MM): " HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Grid>
+        <Grid Grid.Column="13" Grid.Row="3">
+            <TextBox x:Name="TxtB_Month" Text="{Binding SelectedMonthDateInItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center">
+                <TextBox.ToolTip>
+                    <ToolTip>
+                        <TextBlock>Entrez le mois au format MM. Exemple : 11</TextBlock>
+                    </ToolTip>
+                </TextBox.ToolTip>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Column="10" Grid.Row="4">
+            <TextBlock Text="Année (YYYY): " HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Grid>
+        <Grid Grid.Column="11" Grid.Row="4">
+            <TextBox x:Name="TxtB_Year" Text="{Binding SelectedYearDateInItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center">
+                <TextBox.ToolTip>
+                    <ToolTip>
+                        <TextBlock>Entrez l'année au format YYYY. Exemple : 2018</TextBlock>
+                    </ToolTip>
+                </TextBox.ToolTip>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Column="13" Grid.Row="4">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Société" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <ComboBox IsEditable="True" StaysOpenOnEdit="True" IsTextSearchEnabled="True" TextSearch.TextPath="Detail.CompanyId" Name="LB_CompanyList" ItemsSource="{Binding Vehicle}" SelectedItem="{Binding SelectedCompanyItem}" MinWidth="80">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Detail.CompanyId}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <DataGrid Grid.Column="1" Grid.ColumnSpan="8" Grid.Row="1" Grid.RowSpan="7" Name="DG_InterventionPrestation" ItemsSource="{Binding Prestation}" SelectedItem="{Binding SelectedPrestationItem}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="PrestationId" Binding="{Binding Detail.PrestationId}" Visibility="Hidden" />
+                <DataGridTextColumn IsReadOnly="True" Header="Prestataire" Binding="{Binding Detail.EmployeeId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="InterventionId" Binding="{Binding Detail.InterventionId.interventionId}" Visibility="Hidden" />
+                <DataGridTextColumn IsReadOnly="True" Header="Heure prestée" Binding="{Binding Detail.HoursCount}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Type de prestation" Binding="{Binding Detail.PrestationTypeId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Date de prestation" Binding="{Binding Detail.Date, StringFormat=dd-MM-yyyy}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Type d'intervention" Binding="{Binding Detail.InterventionId.interventionTypeId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Status" Binding="{Binding Detail.InterventionId.StatusId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Véhicule" Binding="{Binding Detail.InterventionId.vehicleId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Encodeur" Binding="{Binding Detail.InterventionId.Submitter.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Demandeur" Binding="{Binding Detail.InterventionId.Applicant.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Garage" Binding="{Binding Detail.InterventionId.SiteId.Name}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Société" Binding="{Binding Detail.InterventionId.vehicleId.CompanyId}" Visibility="Visible" />
+                <DataGridCheckBoxColumn IsReadOnly="False" Binding="{Binding Detail.IsCheckedForGenerateSheet, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Visibility="Visible">
+                    <DataGridCheckBoxColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <CheckBox Name="Bt_SelectAllPrestation" Content="Feuille de facturation" Command="{Binding Path=DataContext.SelectAllPrestationForGenerateInvoice,RelativeSource={RelativeSource AncestorType=DataGrid}}" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridCheckBoxColumn.HeaderTemplate>
+                </DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="12" Grid.Row="4">
+            <CheckBox Name="CheckBox_SelectedBeforeDate" Content="Précédent la date" IsChecked="{Binding SelectedBeforeDate}"/>
+        </Grid>
+        <Grid Grid.Column="12" Grid.Row="5">
+            <Button Name="Bt_Search" Content="Filtrer prestation" Command="{Binding FilterPrestation}" VerticalAlignment="Center" MinHeight="40"/>
+        </Grid>
+        <Grid Grid.Column="13" Grid.Row="5">
+            <Button Name="Bt_Reset" Content="Reset prestation" Command="{Binding ResetFilterPrestation}" VerticalAlignment="Center" MinHeight="40"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="9">
+            <StackPanel>
+                <Label Content="Numéro de facture :"/>
+                <TextBox Text="{Binding SelectedCreateNumberInvoiceItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="2" Grid.Row="9">
+            <StackPanel>
+                <Label Content="Prix/heure :"/>
+                <TextBox Text="{Binding SelectedPriceInvoiceItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="9">
+            <StackPanel>
+                <Label Content="% TVA :"/>
+                <TextBox Text="{Binding SelectedTVAInvoiceItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="4" Grid.Row="9">
+            <StackPanel>
+                <Label Content="Heure total :"/>
+                <TextBox Text="{Binding SelectedWeightInvoiceItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="8" Grid.Row="9">
+            <Button Name="Bt_GenerateInvoice" Content="Générer facture" Command="{Binding GenerateInvoice}"/>
+        </Grid>
+        <Grid Grid.Column="10" Grid.Row="6">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="N° de facture" HorizontalAlignment="Left" Margin="0,0,0,10" />
+                <TextBox x:Name="TxtB_NumberInvoice" Text="{Binding SelectedNumberInvoiceItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MinWidth="80"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="12" Grid.Row="6">
+            <Button Name="Bt_SearchInvoice" Content="Filtrer facture" Command="{Binding FilterInvoice}" VerticalAlignment="Center" MinHeight="40"/>
+        </Grid>
+        <Grid Grid.Column="13" Grid.Row="6">
+            <Button Name="Bt_ResetInvoice" Content="Reset facture" Command="{Binding ResetFilterInvoice}" VerticalAlignment="Center" MinHeight="40"/>
+        </Grid>
+        <DataGrid Grid.Column="1" Grid.ColumnSpan="8" Grid.Row="11" Name="DG_Invoice" ItemsSource="{Binding Invoice}" SelectedItem="{Binding SelectedInvoiceItem}" AutoGenerateColumns="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="InvoiceId" Binding="{Binding Detail.InvoiceId}" Visibility="Hidden" />
+                <DataGridTextColumn IsReadOnly="True" Header="Ponderation" Binding="{Binding Detail.Ponderation}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="TVA" Binding="{Binding Detail.TVA}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Prix" Binding="{Binding Detail.Price}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Numéro de facture" Binding="{Binding Detail.NumberInvoice}" Visibility="Visible" />
+                <DataGridTextColumn IsReadOnly="True" Header="Date de facture" Binding="{Binding Detail.DateInvoice, StringFormat=dd-MM-yyyy}" Visibility="Visible" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="5" Grid.Row="13" Grid.ColumnSpan="2">
+            <Button Name="Bt_DisplayDetailInvoice" Content="Afficher détail facture" Command="{Binding DisplayDetailInvoice}"/>
+        </Grid>
+        <Grid Grid.Column="8" Grid.Row="13">
+            <Button Name="Bt_GenerateNewInvoice" Content="Regénérer facture" Command="{Binding RegenerateInvoice}"/>
+        </Grid>
+    </Grid>
+</Page>
