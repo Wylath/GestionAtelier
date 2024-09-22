@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionAtelier", "GestionAtelier\GestionAtelier.csproj", "{5F58DE20-40FC-4AB0-9EC8-85D528A9F848}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstallerGestionAtelier", "InstallerGestionAtelier\InstallerGestionAtelier\InstallerGestionAtelier.vdproj", "{754C4038-7565-4923-8E43-2D520D40A962}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F58DE20-40FC-4AB0-9EC8-85D528A9F848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F58DE20-40FC-4AB0-9EC8-85D528A9F848}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F58DE20-40FC-4AB0-9EC8-85D528A9F848}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F58DE20-40FC-4AB0-9EC8-85D528A9F848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{754C4038-7565-4923-8E43-2D520D40A962}.Debug|Any CPU.ActiveCfg = Debug
+		{754C4038-7565-4923-8E43-2D520D40A962}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75E00CD6-D467-479C-9D23-CF4C22B3ACB7}
+	EndGlobalSection
+EndGlobal

@@ -5,7 +5,7 @@ using GestionAtelier.ViewModel;
 using System;
 using System.Windows;
 
-namespace GestionAtelier.Toolbox
+namespace GestionAtelier.ToolBox
 {
     class SwitchWindows
     {
