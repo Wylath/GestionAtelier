@@ -87,12 +87,12 @@ FactureDetail_xxx (Number invoice)
 
 ## Reporting issues
 
-Issues can be reported via the [Gitlab issue tracker](https://github.com/Wylath/GestionAtelier/issues).
+Issues can be reported via the [Github issue tracker](https://github.com/Wylath/GestionAtelier/issues).
 
 
 ## Copyright
 
-Copyright Wylath © 2018-2019
+Copyright Wylath Â© 2018-2019
 
 
 ## Authors &amp; Contributors
